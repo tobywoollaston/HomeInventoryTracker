@@ -14,7 +14,4 @@ extension ItemEntity: BaseEntityModel {
         request.sortDescriptors = []
         return request
     }
-    static func get(_ id: NSManagedObjectID) -> ItemEntity? {
-        return viewContext.object(with: id) as? ItemEntity
-    }
 }

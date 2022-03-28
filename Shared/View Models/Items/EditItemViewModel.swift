@@ -44,7 +44,7 @@ class EditItemViewModel: NSObject, ObservableObject {
             ItemType(rawValue: item.type ?? "general")!
         }
         set {
-            item.location = newValue.rawValue
+            item.type = newValue.rawValue
             save()
         }
     }
