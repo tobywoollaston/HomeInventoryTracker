@@ -83,6 +83,10 @@ class EditItemViewModel: NSObject, ObservableObject {
         try? item.save()
     }
     
+    func delete () {
+        try? item.delete()
+    }
+    
     func getAllLocations() -> [LocationViewModel] {
         return locationsVM.getAll()
     }

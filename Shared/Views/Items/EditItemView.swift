@@ -47,6 +47,7 @@ struct EditItemView: View {
                         Text(location.name)
                     }
                 }
+                .pickerStyle(MenuPickerStyle())
             }
             Section {
                 HStack(alignment: .center) {
@@ -69,8 +70,9 @@ struct EditItemView: View {
             Section {
                 Button("Delete") {
                     dismiss()
-//                    addItemVM.save()
+                    item.delete()
                 }
+                .foregroundColor(.red)
                 .centerHorizontally()
             }
         }
