@@ -14,4 +14,13 @@ extension ItemEntity: BaseEntityModel {
         request.sortDescriptors = []
         return request
     }
+    static var lowStock: NSFetchRequest<ItemEntity> {
+        let request = ItemEntity.fetchRequest()
+        request.sortDescriptors = []
+        
+        let predicate = NSPredicate(format: "(type == 'count' AND count < lowValue) OR (type == 'general' AND (quantity == 'low' OR quantity == 'none'))")
+        request.predicate = predicate
+        
+        return request
+    }
 }

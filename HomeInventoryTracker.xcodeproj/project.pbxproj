@@ -12,6 +12,9 @@
 		DA977D0E27EFDC5B00DD046B /* GeneralItemTypeQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA977D0D27EFDC5B00DD046B /* GeneralItemTypeQuantity.swift */; };
 		DA977D1027F1216D00DD046B /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA977D0F27F1216D00DD046B /* CounterView.swift */; };
 		DA977D1327F1233D00DD046B /* ToBuyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA977D1227F1233D00DD046B /* ToBuyListView.swift */; };
+		DA977D1827F261CD00DD046B /* ToBuyListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA977D1727F261CD00DD046B /* ToBuyListViewModel.swift */; };
+		DA977D1A27F6468F00DD046B /* ToBuyItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA977D1927F6468F00DD046B /* ToBuyItemViewModel.swift */; };
+		DA977D1C27F6562C00DD046B /* CheckboxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA977D1B27F6562C00DD046B /* CheckboxStyle.swift */; };
 		DA9D661327E9E13F00A4A9A0 /* HomeInventoryTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D660327E9E13D00A4A9A0 /* HomeInventoryTrackerApp.swift */; };
 		DA9D661427E9E13F00A4A9A0 /* HomeInventoryTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D660327E9E13D00A4A9A0 /* HomeInventoryTrackerApp.swift */; };
 		DA9D661527E9E13F00A4A9A0 /* ItemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D660427E9E13D00A4A9A0 /* ItemsListView.swift */; };
@@ -55,6 +58,9 @@
 		DA977D0D27EFDC5B00DD046B /* GeneralItemTypeQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralItemTypeQuantity.swift; sourceTree = "<group>"; };
 		DA977D0F27F1216D00DD046B /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		DA977D1227F1233D00DD046B /* ToBuyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyListView.swift; sourceTree = "<group>"; };
+		DA977D1727F261CD00DD046B /* ToBuyListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyListViewModel.swift; sourceTree = "<group>"; };
+		DA977D1927F6468F00DD046B /* ToBuyItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyItemViewModel.swift; sourceTree = "<group>"; };
+		DA977D1B27F6562C00DD046B /* CheckboxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxStyle.swift; sourceTree = "<group>"; };
 		DA9D660327E9E13D00A4A9A0 /* HomeInventoryTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInventoryTrackerApp.swift; sourceTree = "<group>"; };
 		DA9D660427E9E13D00A4A9A0 /* ItemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListView.swift; sourceTree = "<group>"; };
 		DA9D660527E9E13E00A4A9A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,6 +115,15 @@
 			isa = PBXGroup;
 			children = (
 				DA977D1227F1233D00DD046B /* ToBuyListView.swift */,
+			);
+			path = ToBuy;
+			sourceTree = "<group>";
+		};
+		DA977D1627F261AF00DD046B /* ToBuy */ = {
+			isa = PBXGroup;
+			children = (
+				DA977D1727F261CD00DD046B /* ToBuyListViewModel.swift */,
+				DA977D1927F6468F00DD046B /* ToBuyItemViewModel.swift */,
 			);
 			path = ToBuy;
 			sourceTree = "<group>";
@@ -177,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				DAE551D627EA39DF005958B0 /* Items */,
+				DA977D1627F261AF00DD046B /* ToBuy */,
 				DAE551D727EA39E5005958B0 /* Settings */,
 			);
 			path = "View Models";
@@ -262,6 +278,7 @@
 				DAE551EE27EA961C005958B0 /* NumberField.swift */,
 				DAE551F227EB4066005958B0 /* StringNumberStepper.swift */,
 				DA977D0F27F1216D00DD046B /* CounterView.swift */,
+				DA977D1B27F6562C00DD046B /* CheckboxStyle.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -366,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAE551DF27EA42A8005958B0 /* LocationsViewModel.swift in Sources */,
+				DA977D1A27F6468F00DD046B /* ToBuyItemViewModel.swift in Sources */,
 				DAE551E827EA4EE0005958B0 /* LocationEntity+Extensions.swift in Sources */,
 				DA977D1327F1233D00DD046B /* ToBuyListView.swift in Sources */,
 				DAE551F727EB7675005958B0 /* GeneralItemTypeView.swift in Sources */,
@@ -383,6 +401,7 @@
 				DA9D662627E9E99D00A4A9A0 /* DataController.swift in Sources */,
 				DAF6487627EBDC74005928F1 /* ItemEntity+Extensions.swift in Sources */,
 				DAF6487827EC5186005928F1 /* ItemCellView.swift in Sources */,
+				DA977D1827F261CD00DD046B /* ToBuyListViewModel.swift in Sources */,
 				DAE551EA27EA4F05005958B0 /* BaseEntityModel.swift in Sources */,
 				DA9D662327E9E93300A4A9A0 /* Inventory.xcdatamodeld in Sources */,
 				DA977D1027F1216D00DD046B /* CounterView.swift in Sources */,
@@ -394,6 +413,7 @@
 				DA9D662C27E9EFB700A4A9A0 /* AddItemView.swift in Sources */,
 				DA977D0A27EFD9D000DD046B /* EditItemViewModel.swift in Sources */,
 				DAF6487C27EFA8A2005928F1 /* ItemListViewModel.swift in Sources */,
+				DA977D1C27F6562C00DD046B /* CheckboxStyle.swift in Sources */,
 				DAE551EF27EA961C005958B0 /* NumberField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

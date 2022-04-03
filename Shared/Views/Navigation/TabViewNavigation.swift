@@ -9,22 +9,28 @@ import SwiftUI
 
 struct TabViewNavigation: View {
     @Environment(\.managedObjectContext) var viewContext
-    @State private var selection = 1
+    @State private var selection = 2
     
     var body: some View {
         TabView(selection: $selection) {
             ItemsListView(itemsListVM: ItemsListViewModel(context: viewContext))
                 .tabItem {
-                    Image(systemName: "list.bullet.circle")
+                    Image(systemName: "books.vertical")
                     Text("Items")
                 }
                 .tag(1)
+            ToBuyListView(toBuyListVM: ToBuyListViewModel(context: viewContext))
+                .tabItem {
+                    Image(systemName: "list.bullet.rectangle.portrait.fill")
+                    Text("Shopping List")
+                }
+                .tag(2)
             SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape")
                     Text("Settings")
                 }
-                .tag(2)
+                .tag(3)
         }
     }
 }

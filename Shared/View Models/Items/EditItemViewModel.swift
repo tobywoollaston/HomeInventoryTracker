@@ -55,6 +55,7 @@ class EditItemViewModel: NSObject, ObservableObject {
         }
         set {
             item.count = newValue
+            item.checked = false
             save()
         }
     }
@@ -65,6 +66,7 @@ class EditItemViewModel: NSObject, ObservableObject {
         }
         set {
             item.lowValue = newValue
+            item.checked = false
             save()
         }
     }
@@ -75,6 +77,7 @@ class EditItemViewModel: NSObject, ObservableObject {
         }
         set {
             item.quantity = newValue.rawValue
+            item.checked = false
             save()
         }
     }
