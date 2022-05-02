@@ -82,7 +82,20 @@ class EditItemViewModel: NSObject, ObservableObject {
         }
     }
     
+    var createdDate: Date {
+        get {
+            item.createdDate ?? Date()
+        }
+    }
+    
+    var updatedDate: Date {
+        get {
+            item.updatedDate ?? Date()
+        }
+    }
+    
     private func save() {
+        item.updatedDate = Date()
         try? item.save()
     }
     

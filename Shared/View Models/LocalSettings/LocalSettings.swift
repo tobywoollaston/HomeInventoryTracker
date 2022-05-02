@@ -20,20 +20,20 @@ class LocalSettings: NSObject, ObservableObject {
         }
     }
     
-    // alphabetical sorting option
-    @Published private var _alphabeticalSortingOption: AlphabeticalSortingOption!
+    // sorting option
+    @Published private var _orderingSortOption: OrderingSortOption!
     
-    func getAlphabeticalSorting() -> AlphabeticalSortingOption {
-        return _alphabeticalSortingOption
+    func getOrderingSort() -> OrderingSortOption {
+        return _orderingSortOption ?? .unordered
     }
     
-    func setAlphabeticalSorting(_ option: AlphabeticalSortingOption) {
-        defaults.set(option.rawValue, forKey: AlphabeticalSortKey)
-        _alphabeticalSortingOption = option
+    func setOrderingSort(_ option: OrderingSortOption) {
+        defaults.set(option.rawValue, forKey: OrderingSortKey)
+        _orderingSortOption = option
     }
     
     func loadDefaults() {
-        _alphabeticalSortingOption = AlphabeticalSortingOption.init(rawValue: defaults.string(forKey: AlphabeticalSortKey) ?? AlphabeticalSortingOption.ascending.rawValue)!
+        _orderingSortOption = OrderingSortOption.init(rawValue: defaults.string(forKey: OrderingSortKey) ?? OrderingSortOption.ascending.rawValue)!
     }
     
     

@@ -11,6 +11,7 @@ struct ItemsListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @State private var showingAddScreen = false
     @ObservedObject private var itemsListVM: ItemsListViewModel
+    @ObservedObject private var sorting = LocalSettings()
     
     init(itemsListVM: ItemsListViewModel) {
         self.itemsListVM = itemsListVM
@@ -19,7 +20,7 @@ struct ItemsListView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(itemsListVM.getAll()) { item in
+                ForEach(getItems()) { item in
                     NavigationLink {
                         EditItemView(item: EditItemViewModel(item.rawItem, context: viewContext))
                     } label: {
@@ -48,7 +49,34 @@ struct ItemsListView: View {
             .sheet(isPresented: $showingAddScreen) {
                 AddItemView(addItemVM: AddItemViewModel(context: viewContext))
             }
+            .onAppear() {
+                sorting.loadDefaults()
+            }
         }
+    }
+    
+    func getItems() -> [ItemListViewModel] {
+        var allItems = itemsListVM.getAll()
+        
+        switch (sorting.getOrderingSort()) {
+        case .ascending:
+            allItems.sort(by: ItemListViewModel.sortAlphabeticallyAscending(_:_:))
+            break
+        case .descending:
+            allItems.sort(by: ItemListViewModel.sortAlphabeticallyDescending(_:_:))
+            break
+        case .createdDate:
+            allItems.sort(by: ItemListViewModel.sortByCreatedDate(_:_:))
+            break
+        case .updatedDate:
+            allItems.sort(by: ItemListViewModel.sortByUpdatedDate(_:_:))
+            break
+        }
+        
+//        allItems.sort { a, b in
+//            return a.name < b.name
+//        }
+        return allItems
     }
 }
 

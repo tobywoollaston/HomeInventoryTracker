@@ -46,11 +46,17 @@ struct SortingSelectionMenuView: View {
     
     private var alphabeticallySortingView: some View {
         Section {
-            SelectButtonBar(title: "Ascending", checked: sorting.getAlphabeticalSorting() == .ascending, action: {
-                sorting.setAlphabeticalSorting(.ascending)
+            SelectButtonBar(title: "Ascending", checked: sorting.getOrderingSort() == .ascending, action: {
+                sorting.setOrderingSort(.ascending)
             })
-            SelectButtonBar(title: "Descending", checked: sorting.getAlphabeticalSorting() == .descending, action: {
-                sorting.setAlphabeticalSorting(.descending)
+            SelectButtonBar(title: "Descending", checked: sorting.getOrderingSort() == .descending, action: {
+                sorting.setOrderingSort(.descending)
+            })
+            SelectButtonBar(title: "Created Date", checked: sorting.getOrderingSort() == .createdDate, action: {
+                sorting.setOrderingSort(.createdDate)
+            })
+            SelectButtonBar(title: "Updated Date", checked: sorting.getOrderingSort() == .updatedDate, action: {
+                sorting.setOrderingSort(.updatedDate)
             })
         }
     }

@@ -96,6 +96,10 @@ struct EditItemView: View {
                     GeneralItemTypeView(quantity: $item.quantity)
                 }
             }
+            Section {
+                Text("Created: \(item.createdDate.formatted())")
+                Text("Updated: \(item.updatedDate.formatted())")
+            }
         }
     }
 }

@@ -35,6 +35,8 @@ class AddItemViewModel: NSObject, ObservableObject {
     
     func save() {
         let item = ItemEntity(context: context)
+        item.createdDate = Date()
+        item.updatedDate = Date()
         item.name = name
         item.location = location
         item.type = type.rawValue
@@ -48,5 +50,3 @@ class AddItemViewModel: NSObject, ObservableObject {
     }
     
 }
-
-

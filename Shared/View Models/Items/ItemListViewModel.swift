@@ -20,6 +20,14 @@ class ItemListViewModel: NSObject, Identifiable {
         item.name ?? "Unknown Item"
     }
     
+    var createdDate: Date {
+        item.createdDate ?? Date()
+    }
+    
+    var updatedDate: Date {
+        item.updatedDate ?? Date()
+    }
+    
     var location: String {
         item.location ?? "Unknown Location"
     }
@@ -48,4 +56,23 @@ class ItemListViewModel: NSObject, Identifiable {
         self.item
     }
     
+}
+
+// sorting
+extension ItemListViewModel {
+    static func sortAlphabeticallyAscending(_ a: ItemListViewModel, _ b: ItemListViewModel) -> Bool {
+        return a.name < b.name
+    }
+    
+    static func sortAlphabeticallyDescending(_ a: ItemListViewModel, _ b: ItemListViewModel) -> Bool {
+        return a.name > b.name
+    }
+    
+    static func sortByCreatedDate(_ a: ItemListViewModel, _ b: ItemListViewModel) -> Bool {
+        return a.createdDate < b.createdDate
+    }
+    
+    static func sortByUpdatedDate(_ a: ItemListViewModel, _ b: ItemListViewModel) -> Bool {
+        return a.updatedDate > b.updatedDate
+    }
 }

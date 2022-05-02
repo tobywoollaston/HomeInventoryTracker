@@ -7,9 +7,11 @@
 
 import Foundation
 
-let AlphabeticalSortKey = "AlphabeticalSorting"
+let OrderingSortKey = "OrderingSortValue"
 
-enum AlphabeticalSortingOption: String {
+enum OrderingSortOption: String {
     case ascending
     case descending
+    case createdDate
+    case updatedDate
 }
