@@ -24,7 +24,7 @@ class LocalSettings: NSObject, ObservableObject {
     @Published private var _orderingSortOption: OrderingSortOption!
     
     func getOrderingSort() -> OrderingSortOption {
-        return _orderingSortOption ?? .unordered
+        return _orderingSortOption ?? .ascending
     }
     
     func setOrderingSort(_ option: OrderingSortOption) {
@@ -32,10 +32,35 @@ class LocalSettings: NSObject, ObservableObject {
         _orderingSortOption = option
     }
     
-    func loadDefaults() {
-        _orderingSortOption = OrderingSortOption.init(rawValue: defaults.string(forKey: OrderingSortKey) ?? OrderingSortOption.ascending.rawValue)!
+    // display as
+    @Published private var _displayAsOption: DisplayAsOption!
+    
+    func getDisplayAs() -> DisplayAsOption {
+        return _displayAsOption ?? .listAll
     }
     
+    func getDisplayAsText() -> String {
+        switch (_displayAsOption) {
+        case .listAll:
+            return "List All"
+        case .groupByLocation:
+            return "Group By Location"
+        case .none:
+            return ""
+        }
+    }
     
+    func setDisplayAs(_ option: DisplayAsOption) {
+        defaults.set(option.rawValue, forKey: DisplayAsKey)
+        _displayAsOption = option
+    }
+    
+    //
+    
+    func loadDefaults() {
+        _orderingSortOption = OrderingSortOption.init(rawValue: defaults.string(forKey: OrderingSortKey) ?? OrderingSortOption.ascending.rawValue)!
+        
+        _displayAsOption = DisplayAsOption.init(rawValue: defaults.string(forKey: DisplayAsKey) ?? DisplayAsOption.listAll.rawValue)!
+    }
     
 }

@@ -16,9 +16,7 @@ struct SortingSelectionMenuView: View {
     var body: some View {
         List {
             alphabeticallySortingView
-            Section {
-                Text("Group By")
-            }
+            displaySortingView
             Section {
                 SelectButtonBar(title: "Showing Locations", checked: false, action: {
                     showingAllLocations.toggle()
@@ -45,7 +43,7 @@ struct SortingSelectionMenuView: View {
     }
     
     private var alphabeticallySortingView: some View {
-        Section {
+        Section(header: Text("Sort By")) {
             SelectButtonBar(title: "Ascending", checked: sorting.getOrderingSort() == .ascending, action: {
                 sorting.setOrderingSort(.ascending)
             })
@@ -58,6 +56,28 @@ struct SortingSelectionMenuView: View {
             SelectButtonBar(title: "Updated Date", checked: sorting.getOrderingSort() == .updatedDate, action: {
                 sorting.setOrderingSort(.updatedDate)
             })
+        }
+    }
+    
+    private var displaySortingView: some View {
+        Section(header: Text("Display")) {
+            Button {
+                switch (sorting.getDisplayAs()) {
+                case .listAll:
+                    sorting.setDisplayAs(.groupByLocation)
+                    break
+                case .groupByLocation:
+                    sorting.setDisplayAs(.listAll)
+                    break
+                }
+            } label: {
+                HStack {
+                    Text("Display as:")
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Text(sorting.getDisplayAsText())
+                }
+            }
         }
     }
     

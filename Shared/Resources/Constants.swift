@@ -15,3 +15,10 @@ enum OrderingSortOption: String {
     case createdDate
     case updatedDate
 }
+
+let DisplayAsKey = "DisplayAsValue"
+
+enum DisplayAsOption: String {
+    case listAll
+    case groupByLocation
+}

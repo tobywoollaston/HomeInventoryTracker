@@ -88,17 +88,17 @@ struct EditItemView: View {
                     Text(item.location)
                 }
             }
-            Section {
+            Section(footer: VStack {
+                Rectangle().frame(width: 0, height: 0, alignment: .top).foregroundColor(.clear)
+                HStack { Text("Created: \(item.createdDate.formatted())"); Spacer() }
+                HStack { Text("Updated: \(item.updatedDate.formatted())"); Spacer() }
+            }) {
                 switch (item.type) {
                 case .count:
                     CounterView("Count", value: $item.count)
                 case .general:
                     GeneralItemTypeView(quantity: $item.quantity)
                 }
-            }
-            Section {
-                Text("Created: \(item.createdDate.formatted())")
-                Text("Updated: \(item.updatedDate.formatted())")
             }
         }
     }

@@ -19,15 +19,7 @@ struct ItemsListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(getItems()) { item in
-                    NavigationLink {
-                        EditItemView(item: EditItemViewModel(item.rawItem, context: viewContext))
-                    } label: {
-                        ItemCellView(item: item)
-                    }
-                }
-            }
+            itemsList
             .navigationTitle("Items (\(itemsListVM.getCount()))")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -55,30 +47,97 @@ struct ItemsListView: View {
         }
     }
     
-    func getItems() -> [ItemListViewModel] {
-        var allItems = itemsListVM.getAll()
-        
-        switch (sorting.getOrderingSort()) {
-        case .ascending:
-            allItems.sort(by: ItemListViewModel.sortAlphabeticallyAscending(_:_:))
-            break
-        case .descending:
-            allItems.sort(by: ItemListViewModel.sortAlphabeticallyDescending(_:_:))
-            break
-        case .createdDate:
-            allItems.sort(by: ItemListViewModel.sortByCreatedDate(_:_:))
-            break
-        case .updatedDate:
-            allItems.sort(by: ItemListViewModel.sortByUpdatedDate(_:_:))
-            break
+    private var itemsList: some View {
+        Group {
+            switch (sorting.getDisplayAs()) {
+            case .listAll:
+                display_listAllView
+            case .groupByLocation:
+                display_groupByLocation
+            }
         }
-        
-//        allItems.sort { a, b in
-//            return a.name < b.name
-//        }
+    }
+    
+    private var display_listAllView: some View {
+        List {
+            ForEach(getListAllItems()) { item in
+                NavigationLink {
+                    EditItemView(item: EditItemViewModel(item.rawItem, context: viewContext))
+                } label: {
+                    ItemCellView(item: item)
+                }
+            }
+        }
+    }
+    
+    private func getListAllItems() -> [ItemListViewModel] {
+        var allItems = itemsListVM.getAll()
+        allItems = sortItems(allItems)
         return allItems
     }
+    
+    private struct GroupedItemListViewModels {
+        let groupName: String
+        var models: [ItemListViewModel]
+    }
+    
+    private var display_groupByLocation: some View {
+        List {
+            ForEach(getGroupedItems(), id: \.groupName) { group in
+                Section(header: Text(group.groupName)) {
+                    ForEach(group.models, id: \.self) { item in
+                        NavigationLink {
+                            EditItemView(item: EditItemViewModel(item.rawItem, context: viewContext))
+                        } label: {
+                            ItemCellView(item: item)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func getGroupedItems() -> [GroupedItemListViewModels] {
+        var groupedItems = [GroupedItemListViewModels]()
+        itemsListVM.getAll().forEach { item in
+            let groupedItemIndex = groupedItems.firstIndex { group in
+                return group.groupName == item.location
+            }
+            
+            if (groupedItemIndex ?? -1 >= 0) {
+                groupedItems[groupedItemIndex!].models.append(item)
+            } else {
+                groupedItems.append(GroupedItemListViewModels(groupName: item.location, models: [item]))
+            }
+        }
+        return groupedItems
+    }
+    
+    private func sortItems(_ items: [ItemListViewModel]) -> [ItemListViewModel] {
+        var items = items
+        switch (sorting.getOrderingSort()) {
+        case .ascending:
+            items.sort(by: ItemListViewModel.sortAlphabeticallyAscending(_:_:))
+            break
+        case .descending:
+            items.sort(by: ItemListViewModel.sortAlphabeticallyDescending(_:_:))
+            break
+        case .createdDate:
+            items.sort(by: ItemListViewModel.sortByCreatedDate(_:_:))
+            break
+        case .updatedDate:
+            items.sort(by: ItemListViewModel.sortByUpdatedDate(_:_:))
+            break
+        }
+        return items
+    }
+    
 }
+
+//struct GroupedItemListViewModels {
+//    let groupName: String
+//    var models: [ItemListViewModel]
+//}
 
 struct ItemsListView_Previews: PreviewProvider {
     static var previews: some View {
