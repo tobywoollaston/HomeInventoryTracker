@@ -29,6 +29,14 @@ struct ItemsListView: View {
             }
             .navigationTitle("Items (\(itemsListVM.getCount()))")
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink {
+                        SortingSelectionMenuView()
+                    } label: {
+                        Image(systemName: "line.horizontal.3")
+                            .imageScale(.large)
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showingAddScreen.toggle()
