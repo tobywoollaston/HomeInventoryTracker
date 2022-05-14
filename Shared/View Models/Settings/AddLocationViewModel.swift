@@ -21,6 +21,7 @@ class AddLocationViewModel: ObservableObject {
     func save() {
         let location = LocationEntity(context: context)
         location.name = name
+        location.showingOnInventory = true
         try? location.save()
     }
 }

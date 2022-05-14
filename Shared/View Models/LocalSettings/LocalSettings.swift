@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 class LocalSettings: NSObject, ObservableObject {
     
     private let defaults = UserDefaults.standard
+    @ObservedObject private var locationsVM: LocationsViewModel
     
-    override init() {
+    init(locationsVM: LocationsViewModel) {
+        self.locationsVM = locationsVM
         super.init()
         
         DispatchQueue.main.async {
@@ -55,7 +58,10 @@ class LocalSettings: NSObject, ObservableObject {
         _displayAsOption = option
     }
     
-    //
+    // showing locations
+    func getLocations() -> [LocationViewModel] {
+        return locationsVM.getAll()
+    }
     
     func loadDefaults() {
         _orderingSortOption = OrderingSortOption.init(rawValue: defaults.string(forKey: OrderingSortKey) ?? OrderingSortOption.ascending.rawValue)!

@@ -9,36 +9,19 @@ import SwiftUI
 
 struct SortingSelectionMenuView: View {
     
-    @ObservedObject private var sorting = LocalSettings()
+    @ObservedObject private var sorting: LocalSettings
     
     @State private var showingAllLocations = false
+    
+    init(locationsVM: LocationsViewModel) {
+        sorting = LocalSettings(locationsVM: locationsVM)
+    }
     
     var body: some View {
         List {
             alphabeticallySortingView
             displaySortingView
-            Section {
-                SelectButtonBar(title: "Showing Locations", checked: false, action: {
-                    showingAllLocations.toggle()
-                })
-                if (showingAllLocations) {
-                    HStack{
-                        Button {
-                            print("select all locations")
-                        } label: {
-                            Text("Select All")
-                        }
-                        .buttonStyle(BorderlessButtonStyle())
-                        Spacer()
-                        Button {
-                            print("deselect all locations")
-                        } label: {
-                            Text("Deselect All")
-                        }
-                        .buttonStyle(BorderlessButtonStyle())
-                    }
-                }
-            }
+            showingLocationsView
         }
     }
     
@@ -81,6 +64,36 @@ struct SortingSelectionMenuView: View {
         }
     }
     
+    private var showingLocationsView: some View {
+        Section {
+            SelectButtonBar(title: "Showing Locations", checked: false, action: {
+                showingAllLocations.toggle()
+            })
+            if (showingAllLocations) {
+                ForEach(sorting.getLocations()) { location in
+                    SelectButtonBar(title: location.name, checked: location.showingOnInventory, action: {
+                        // need to show
+                    })
+                }
+                HStack{
+                    Button {
+                        print("select all locations")
+                    } label: {
+                        Text("Select All")
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                    Spacer()
+                    Button {
+                        print("deselect all locations")
+                    } label: {
+                        Text("Deselect All")
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                }
+            }
+        }
+    }
+    
 }
 
 struct SelectButtonBar: View  {
@@ -108,6 +121,7 @@ struct SelectButtonBar: View  {
 
 struct SortingSelectionMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SortingSelectionMenuView()
+        let context = DataController.shared.container.viewContext
+        SortingSelectionMenuView(locationsVM: LocationsViewModel(context: context))
     }
 }

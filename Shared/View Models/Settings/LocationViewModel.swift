@@ -24,4 +24,18 @@ struct LocationViewModel: Identifiable {
         location.name ?? "Unknown Location"
     }
     
+    var showingOnInventory: Bool {
+        get {
+            location.showingOnInventory
+        }
+        set {
+            location.showingOnInventory = newValue
+            save()
+        }
+    }
+    
+    private func save() {
+        try? location.save()
+    }
+    
 }

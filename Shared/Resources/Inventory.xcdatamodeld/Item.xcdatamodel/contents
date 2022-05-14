@@ -13,9 +13,10 @@
     </entity>
     <entity name="LocationEntity" representedClassName="LocationEntity" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="showingOnInventory" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="ItemEntity" positionX="-63" positionY="-18" width="128" height="164"/>
-        <element name="LocationEntity" positionX="-63" positionY="0" width="128" height="44"/>
+        <element name="LocationEntity" positionX="-63" positionY="0" width="128" height="59"/>
     </elements>
 </model>

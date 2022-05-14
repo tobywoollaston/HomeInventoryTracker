@@ -11,10 +11,11 @@ struct ItemsListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @State private var showingAddScreen = false
     @ObservedObject private var itemsListVM: ItemsListViewModel
-    @ObservedObject private var sorting = LocalSettings()
+    @ObservedObject private var sorting: LocalSettings
     
-    init(itemsListVM: ItemsListViewModel) {
+    init(itemsListVM: ItemsListViewModel, locationsVM: LocationsViewModel) {
         self.itemsListVM = itemsListVM
+        self.sorting = LocalSettings(locationsVM: locationsVM)
     }
     
     var body: some View {
@@ -24,7 +25,7 @@ struct ItemsListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink {
-                        SortingSelectionMenuView()
+                        SortingSelectionMenuView(locationsVM: LocationsViewModel(context: viewContext))
                     } label: {
                         Image(systemName: "line.horizontal.3")
                             .imageScale(.large)
@@ -110,6 +111,9 @@ struct ItemsListView: View {
                 groupedItems.append(GroupedItemListViewModels(groupName: item.location, models: [item]))
             }
         }
+        for index in 0..<groupedItems.count {
+            groupedItems[index].models = sortItems(groupedItems[index].models)
+        }
         return groupedItems
     }
     
@@ -134,15 +138,10 @@ struct ItemsListView: View {
     
 }
 
-//struct GroupedItemListViewModels {
-//    let groupName: String
-//    var models: [ItemListViewModel]
-//}
-
 struct ItemsListView_Previews: PreviewProvider {
     static var previews: some View {
         let context = DataController.shared.container.viewContext
-        ItemsListView(itemsListVM: ItemsListViewModel(context: context))
+        ItemsListView(itemsListVM: ItemsListViewModel(context: context), locationsVM: LocationsViewModel(context: context))
     }
 }
 

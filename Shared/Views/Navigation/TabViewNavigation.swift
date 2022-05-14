@@ -13,7 +13,7 @@ struct TabViewNavigation: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            ItemsListView(itemsListVM: ItemsListViewModel(context: viewContext))
+            ItemsListView(itemsListVM: ItemsListViewModel(context: viewContext), locationsVM: LocationsViewModel(context: viewContext))
                 .tabItem {
                     Image(systemName: "books.vertical")
                     Text("Items")
