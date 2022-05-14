@@ -62,11 +62,7 @@ struct ItemsListView: View {
     private var display_listAllView: some View {
         List {
             ForEach(getListAllItems()) { item in
-                NavigationLink {
-                    EditItemView(item: EditItemViewModel(item.rawItem, context: viewContext))
-                } label: {
-                    ItemCellView(item: item)
-                }
+                getEditView(item)
             }
         }
     }
@@ -87,11 +83,7 @@ struct ItemsListView: View {
             ForEach(getGroupedItems(), id: \.groupName) { group in
                 Section(header: Text(group.groupName)) {
                     ForEach(group.models, id: \.self) { item in
-                        NavigationLink {
-                            EditItemView(item: EditItemViewModel(item.rawItem, context: viewContext))
-                        } label: {
-                            ItemCellView(item: item)
-                        }
+                        getEditView(item)
                     }
                 }
             }
@@ -134,6 +126,16 @@ struct ItemsListView: View {
             break
         }
         return items
+    }
+    
+    private func getEditView(_ item: ItemListViewModel) -> AnyView {
+        return AnyView(
+            NavigationLink {
+                EditItemView(item: EditItemViewModel(item.id, context: viewContext))
+            } label: {
+                ItemCellView(item: item)
+            }
+        )
     }
     
 }

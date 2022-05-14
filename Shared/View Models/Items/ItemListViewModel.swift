@@ -52,10 +52,6 @@ class ItemListViewModel: NSObject, Identifiable {
         self.item = item
     }
     
-    var rawItem: ItemEntity {
-        self.item
-    }
-    
 }
 
 // sorting

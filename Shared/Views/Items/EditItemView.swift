@@ -108,7 +108,7 @@ struct EditItemView_Previews: PreviewProvider {
     static var previews: some View {
         let context = DataController.shared.container.viewContext
         NavigationView {
-            EditItemView(item: EditItemViewModel(ItemEntity(context: context), context: context))
+            EditItemView(item: EditItemViewModel(ItemEntity(context: context).objectID, context: context))
         }
     }
 }

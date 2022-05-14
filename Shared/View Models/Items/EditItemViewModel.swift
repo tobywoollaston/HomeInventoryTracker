@@ -14,9 +14,13 @@ class EditItemViewModel: NSObject, ObservableObject {
     @Published private var item: ItemEntity
     private let locationsVM: LocationsViewModel
     
-    init(_ item: ItemEntity, context: NSManagedObjectContext) {
+    init(_ itemId: NSManagedObjectID, context: NSManagedObjectContext) {
         self.locationsVM = LocationsViewModel(context: context)
-        self.item = item
+        if let item = try? context.existingObject(with: itemId) as? ItemEntity {
+            self.item = item
+        } else {
+            self.item = ItemEntity(context: context)
+        }
     }
     
     var name: String {
@@ -96,7 +100,7 @@ class EditItemViewModel: NSObject, ObservableObject {
     
     private func save() {
         item.updatedDate = Date()
-        try? item.save()
+//        try? item.save()
     }
     
     func delete () {
