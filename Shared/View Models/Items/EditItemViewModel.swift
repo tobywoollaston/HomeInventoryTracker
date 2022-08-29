@@ -14,10 +14,14 @@ class EditItemViewModel: NSObject, ObservableObject {
     @Published private var item: ItemEntity
     private let locationsVM: LocationsViewModel
     
+    @Published private var itemName: String = "Unknown Item"
+    
     init(_ itemId: NSManagedObjectID, context: NSManagedObjectContext) {
         self.locationsVM = LocationsViewModel(context: context)
         if let item = try? context.existingObject(with: itemId) as? ItemEntity {
             self.item = item
+            
+            self.itemName = item.name ?? "Unknown Item"
         } else {
             self.item = ItemEntity(context: context)
         }
@@ -25,11 +29,10 @@ class EditItemViewModel: NSObject, ObservableObject {
     
     var name: String {
         get {
-            item.name ?? "Unknown Item"
+            itemName
         }
         set {
-            item.name = newValue
-            save()
+            itemName = newValue
         }
     }
     
